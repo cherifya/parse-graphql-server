@@ -2,11 +2,17 @@ import graphqlHTTP from 'express-graphql';
 import Parse from 'parse/node';
 import { create as createQuery } from './lib/query';
 
-export function setup({ schema, graphiql = false }) {
+export function setup({ schema, settings, graphiql = false }) {
   const isSchemaLegit = typeof schema === 'object';
-
+  
   if (!isSchemaLegit) {
     throw new Error('Invalid schema');
+  }
+  
+  if (settings && settings.parseServerApplicationId && settings.parseServerURL) {
+    // Initialize parse if we're passed the right settings
+    Parse.initialize(settings.parseServerApplicationId);
+    Parse.serverURL = settings.parseServerURL;
   }
 
   return graphqlHTTP(request => {
