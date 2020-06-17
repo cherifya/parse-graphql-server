@@ -10,7 +10,7 @@
     "build": "gulp build",
     "coverage": "gulp coverage",
     "prepublish": "gulp build",
-    "postinstall": "cd ./node_modules/parse-graphql-server && npm install && npm run build"
+    "postinstall": "npm install && npm run build"
   },
   "repository": {
     "type": "git",
